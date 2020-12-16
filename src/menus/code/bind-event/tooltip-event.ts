@@ -17,18 +17,57 @@ function createShowHideFn(editor: Editor) {
      * 显示 tooltip
      * @param $code 链接元素
      */
-    function showCodeTooltip($code: DomElement) {
+    function showCodeTooltip(e: Event) {
+        let $code: DomElement | null = null
+        const target = e.target as HTMLElement
+        const $target = $(target)
+        if ($target.getNodeName() === 'CODE') {
+            // 当前点击的就是一个链接
+            $code = $target
+        } else {
+            // 否则，向父节点中寻找链接
+            const $parent = $target.parentUntil('code')
+            if ($parent !== null) {
+                // 找到了
+                $code = $parent
+            }
+        }
+
+        if (!$code) {
+            hideCodeTooltip()
+            return
+        }
+        if (tooltip) {
+            return
+        }
         const i18nPrefix = 'menus.panelMenus.code.'
         const t = (text: string, prefix: string = i18nPrefix): string => {
             return editor.i18next.t(prefix + text)
         }
-
         const conf = [
             {
-                $elem: $(`<span>${t('删除代码')}</span>`),
+                $elem: $(`<span>${t('段前插入一行')}</span>`),
                 onClick: (editor: Editor, $code: DomElement) => {
-                    //dom操作删除
-                    $code.remove()
+                    // dom操作删除
+                    const line = $('<p><br></p>').insertBefore($code)
+                    editor.selection.moveCursor(line.getNode())
+                    //@ts-ignore
+                    line.getNode().scrollIntoView()
+                    // $code.remove();
+
+                    // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
+                    return true
+                },
+            },
+            {
+                $elem: $(`<span>${t('段后插入一行')}</span>`),
+                onClick: (editor: Editor, $code: DomElement) => {
+                    // dom操作删除
+                    const line = $('<p><br></p>').insertAfter($code)
+                    editor.selection.moveCursor(line.getNode())
+                    //@ts-ignore
+                    line.getNode().scrollIntoView()
+                    // $code.remove();
 
                     // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
                     return true
@@ -94,10 +133,10 @@ export default function bindTooltipEvent(editor: Editor) {
     const { showCodeTooltip, hideCodeTooltip } = createShowHideFn(editor)
 
     // 点击代码元素时，显示 tooltip
-    editor.txt.eventHooks.codeClickEvents.push(showCodeTooltip)
+    editor.txt.eventHooks.clickEvents.push(showCodeTooltip)
 
     // 点击其他地方，或者滚动时，隐藏 tooltip
-    editor.txt.eventHooks.clickEvents.push(hideCodeTooltip)
+    // editor.txt.eventHooks.clickEvents.push(hideCodeTooltip)
     editor.txt.eventHooks.toolbarClickEvents.push(hideCodeTooltip)
     editor.txt.eventHooks.menuClickEvents.push(hideCodeTooltip)
     editor.txt.eventHooks.textScrollEvents.push(hideCodeTooltip)

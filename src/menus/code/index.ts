@@ -63,7 +63,7 @@ export function formatCodeHtml(editor: Editor, html: string) {
 }
 
 class Code extends PanelMenu implements MenuActive {
-    constructor(editor: Editor) {
+    constructor(editor: any) {
         const $elem = $('<div class="w-e-menu"><i class="w-e-icon-terminal"></i></div>')
         super($elem, editor)
 
@@ -79,7 +79,7 @@ class Code extends PanelMenu implements MenuActive {
     private insertLineCode(text: string) {
         let editor = this.editor
         // 行内代码处理
-        let $code = $(`<code>${text}</code>`)
+        let $code = $(`<code style="white-space:pre">${text}</code>`)
         editor.cmd.do('insertElem', $code)
         editor.selection.createRangeByElem($code, false)
         editor.selection.restoreSelection()

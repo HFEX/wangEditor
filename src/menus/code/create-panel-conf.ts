@@ -12,7 +12,7 @@ import isActive from './is-active'
 export default function (editor: Editor, text: string, languageType: string): PanelConf {
     // panel 中需要用到的id
     const inputIFrameId = getRandom('input-iframe')
-    const languageId = getRandom('select')
+    // const languageId = getRandom('select')
     const btnOkId = getRandom('btn-ok')
 
     /**
@@ -70,22 +70,22 @@ export default function (editor: Editor, text: string, languageType: string): Pa
         tabs: [
             {
                 // tab 的标题
+                //     <select name="" id="${languageId}">
+                //     ${editor.config.languageType.map(language => {
+                //         return (
+                //             '<option ' +
+                //             (languageType == language ? 'selected' : '') +
+                //             ' value ="' +
+                //             language +
+                //             '">' +
+                //             language +
+                //             '</option>'
+                //         )
+                //     })}
+                // </select>
                 title: t('menus.panelMenus.code.插入代码'),
                 // 模板
                 tpl: `<div>
-                        <select name="" id="${languageId}">
-                            ${editor.config.languageType.map(language => {
-                                return (
-                                    '<option ' +
-                                    (languageType == language ? 'selected' : '') +
-                                    ' value ="' +
-                                    language +
-                                    '">' +
-                                    language +
-                                    '</option>'
-                                )
-                            })}
-                        </select>
                         <textarea id="${inputIFrameId}" type="text" class="wang-code-textarea" placeholder="" style="height: 160px">${text.replace(
                     /&quot;/g,
                     '"'
@@ -106,18 +106,23 @@ export default function (editor: Editor, text: string, languageType: string): Pa
                             let formatCode, codeDom
 
                             const $code = document.getElementById(inputIFrameId)
-                            const $select = $('#' + languageId)
+                            // const $select = $('#' + languageId)
 
-                            let languageType = $select.val()
+                            // let languageType = $select.val()
                             // @ts-ignore
                             let code = $code.value
-
+                                .replace(/</gi, '&lt;')
+                                .replace(/>/gi, '&gt;')
+                                .replace(/\\/gi, '\\')
+                                .replace(/\t/gi, '&#09;')
+                                .replace(/\n/gi, '<br>')
+                            formatCode = code
                             // 高亮渲染
-                            if (editor.highlight) {
-                                formatCode = editor.highlight.highlightAuto(code).value
-                            } else {
-                                formatCode = `<xmp>${code}</xmp>`
-                            }
+                            // if (editor.highlight && false) {
+                            //     formatCode = editor.highlight.highlightAuto(code).value
+                            // } else {
+                            //     formatCode = `${code}`
+                            // }
 
                             // 代码为空，则不插入
                             if (!code) return
@@ -127,7 +132,7 @@ export default function (editor: Editor, text: string, languageType: string): Pa
                                 return false
                             } else {
                                 //增加pre标签
-                                codeDom = `<pre type="${languageType}"><code>${formatCode}</code></pre>`
+                                codeDom = `<code style="white-space:pre-wrap;width:100%">${formatCode}</code>`
 
                                 // @ts-ignore
                                 insertCode(codeDom)
