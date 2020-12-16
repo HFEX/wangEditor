@@ -142,6 +142,31 @@ export default function (editor: Editor, text: string, languageType: string): Pa
                             return true
                         },
                     },
+                    {
+                        selector: '#' + inputIFrameId,
+                        type: 'keydown',
+                        fn: (e: KeyboardEvent) => {
+                            if (e.code === 'Tab') {
+                                e.preventDefault()
+                                const $code = document.getElementById(
+                                    inputIFrameId
+                                ) as HTMLInputElement
+                                var indent = '    '
+                                var start = $code.selectionStart as number
+                                var end = $code.selectionEnd as number
+                                var selected = (window.getSelection() as Selection).toString()
+                                selected = indent + selected.replace(/\n/g, '\n' + indent)
+                                $code.value =
+                                    $code.value.substring(0, start) +
+                                    selected +
+                                    $code.value.substring(end)
+                                $code.setSelectionRange(
+                                    start + indent.length,
+                                    start + selected.length
+                                )
+                            }
+                        },
+                    },
                 ],
             }, // tab end
         ], // tabs end
