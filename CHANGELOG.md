@@ -1,3 +1,11 @@
+## [4.5.5](https://github.com/wangeditor-team/wangEditor/compare/v4.5.3...v4.5.5) (2020-12-16)
+
+
+### Features
+
+* 屏蔽语言选择，修改插入代码实现方式 ([e063ce8](https://github.com/wangeditor-team/wangEditor/commit/e063ce829a5cda19f9d7c33c996248978ddbf625))
+* 插入代码支持tab缩进 ([1be2cbb](https://github.com/wangeditor-team/wangEditor/commit/1be2cbb53e29a99a634c5f7dbc7cd1ef77c107c9))
+
 ## [4.5.3](https://github.com/wangeditor-team/wangEditor/compare/v4.5.2...v4.5.3) (2020-12-10)
 
 

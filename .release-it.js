@@ -6,7 +6,7 @@ module.exports = {
         requireBranch: 'master',
     },
     hooks: {
-        "before:init": ["git pull origin master", "npm run all-check"]
+        "before:init": ["git pull origin master"]
     },
     npm: {
         publish: false,
