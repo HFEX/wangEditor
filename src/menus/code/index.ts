@@ -6,7 +6,7 @@
 import PanelMenu from '../menu-constructors/PanelMenu'
 import Editor from '../../editor/index'
 import $ from '../../utils/dom-core'
-import { replaceSpecialSymbol, deepClone } from '../../utils/util'
+import { deepClone } from '../../utils/util'
 import createPanelConf from './create-panel-conf'
 import isActive from './is-active'
 import Panel from '../menu-constructors/Panel'
@@ -20,7 +20,7 @@ export function formatCodeHtml(editor: Editor, html: string) {
 
     html = formatEnterCode(html)
 
-    html = replaceSpecialSymbol(html)
+    // html = replaceSpecialSymbol(html)
 
     return html
 
@@ -32,9 +32,8 @@ export function formatCodeHtml(editor: Editor, html: string) {
 
         preArr.map(item => {
             //将连续的code标签换为\n换行
-            html = html.replace(item, item.replace(/<\/code><code>/g, '\n').replace(/<br>/g, ''))
+            html = html.replace(item, item.replace(/<\/code><code[\s|\S]+?>(<br>)?/g, '<br>'))
         })
-
         return html
     }
 

@@ -116,6 +116,7 @@ export default function (editor: Editor, text: string, languageType: string): Pa
                                 .replace(/\\/gi, '\\')
                                 .replace(/\t/gi, '&#09;')
                                 .replace(/\n/gi, '<br>')
+                                .replace(/"/gm, '&quot;')
                             formatCode = code
                             // 高亮渲染
                             // if (editor.highlight && false) {
@@ -132,7 +133,7 @@ export default function (editor: Editor, text: string, languageType: string): Pa
                                 return false
                             } else {
                                 //增加pre标签
-                                codeDom = `<code style="white-space:pre-wrap;width:100%">${formatCode}</code>`
+                                codeDom = `<pre><code style="white-space:pre-wrap;width:100%">${formatCode}</code></pre>`
 
                                 // @ts-ignore
                                 insertCode(codeDom)

@@ -9,6 +9,7 @@ import initEventHooks from './event-hooks/index'
 import { UA, throttle } from '../utils/util'
 import getChildrenJSON, { NodeListType } from './getChildrenJSON'
 import getHtmlByNodeList from './getHtmlByNodeList'
+import { formatCodeHtml } from '../menus/code/index'
 
 /** 按键函数 */
 type KeyBoardHandler = (event: KeyboardEvent) => unknown
@@ -150,8 +151,7 @@ class Text {
              * 如果去除hljs的标签,在解析状态下回显,会造成显示错误并且无法再通过hljs方法渲染
              * 暂且其弃用
              */
-            // html = formatCodeHtml(editor, html)
-
+            html = formatCodeHtml(editor, html)
             return html
         }
 
