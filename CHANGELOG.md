@@ -1,3 +1,10 @@
+# [4.6.0](https://github.com/wangeditor-team/wangEditor/compare/v4.5.6...v4.6.0) (2020-12-23)
+
+
+### Bug Fixes
+
+* 修复移除pre标签导致的回车视觉断行,增加字符转义 ([a7ae90c](https://github.com/wangeditor-team/wangEditor/commit/a7ae90c6b11c362d58135dceb4b9e0359bebe6c7))
+
 ## [4.5.5](https://github.com/wangeditor-team/wangEditor/compare/v4.5.3...v4.5.5) (2020-12-16)
 
 
