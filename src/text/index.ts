@@ -233,6 +233,13 @@ class Text {
             // 普通字符串，用 <p> 包裹
             html = `<p>${html}</p>`
         }
+
+        if (
+            $textElem.elems[0].lastChild?.childNodes.length === 1 &&
+            $textElem.elems[0].lastChild?.childNodes[0].nodeName === 'BR'
+        ) {
+            $textElem.elems[0].lastChild.remove()
+        }
         $textElem.append($(html))
 
         // 初始化选区，将光标定位到内容尾部
