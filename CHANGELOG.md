@@ -1,3 +1,10 @@
+## [4.6.2](https://github.com/wangeditor-team/wangEditor/compare/v4.6.1...v4.6.2) (2021-01-21)
+
+
+### Features
+
+* txt.append 优化 ([8d57879](https://github.com/wangeditor-team/wangEditor/commit/8d578796534f8b229935438b87e2b10a31934f7b))
+
 ## [4.6.1](https://github.com/wangeditor-team/wangEditor/compare/v4.6.0...v4.6.1) (2020-12-23)
 
 # [4.6.0](https://github.com/wangeditor-team/wangEditor/compare/v4.5.6...v4.6.0) (2020-12-23)
